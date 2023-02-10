@@ -1,0 +1,8 @@
+{
+  "Colors": {
+    "Favorite": "Blue"
+  },
+  "ConnectionStrings": {
+    "StoreFrontContextDb": "Data Source=(localdb)\\ProjectModels;Initial Catalog=StoreFrontDb;Integrated Security=True;Connect Timeout=30;MultipleActiveResultSets=true"
+  }
+}

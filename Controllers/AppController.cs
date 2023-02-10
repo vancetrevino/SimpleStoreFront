@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using SimpleStoreFront.Data;
 using SimpleStoreFront.Services;
 using SimpleStoreFront.ViewModels;
 
@@ -7,10 +8,12 @@ namespace SimpleStoreFront.Controllers
     public class AppController : Controller
     {
         private readonly IMailService _mailService;
+        private readonly StoreFrontContext _context;
 
-        public AppController(IMailService mailService)
+        public AppController(IMailService mailService, StoreFrontContext context)
         {
             _mailService = mailService;
+            _context = context;
         }
 
         public IActionResult Index()
@@ -46,6 +49,15 @@ namespace SimpleStoreFront.Controllers
         {
             ViewBag.Title = "About Us";
             return View();
+        }
+
+        public IActionResult Shop()
+        {
+            var results = from p in _context.Products
+                          orderby p.Category
+                          select p;
+
+            return View(results.ToList());
         }
     }
 }

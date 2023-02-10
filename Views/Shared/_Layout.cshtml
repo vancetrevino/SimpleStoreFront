@@ -9,29 +9,48 @@
 <head>
     <meta charset="utf-8" />
     <title>Store Front: @ViewBag.Title</title>
+    <link href="~/lib/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet" />
+    <link href="~/lib/fortawesome/fontawesome-free/css/all.min.css" rel="stylesheet" />
     <link href="~/css/site.css" rel="stylesheet" />
 </head>
 <body>
-    <header>
-        <h1>Welcome to my store front</h1>
-        <menu>
-            <ul>
-                <li><a asp-controller="App" asp-action="Index">Home</a></li>
-                <li><a asp-controller="App" asp-action="Contact">Contact</a></li>
-                <li><a asp-controller="App" asp-action="Abouy">About</a></li>
-            </ul>
-        </menu>
+    <header class="container-fluid">
+        <nav class="navbar navbar-dark bg-dark navbar-expand-md">
+            <h1 class="navbar-brand"><i class="fa-sharp fa-solid fa-shop"></i> Store front</h1>
+            <button class="navbar-toggler" data-toggle="collapse" data-target="#theMenu">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div id="theMenu" class="navbar-collapse collapse">
+                <ul class="navbar-nav">
+                    <li class="nav-item">
+                        <a class="nav-link" asp-controller="App" asp-action="Index">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" asp-controller="App" asp-action="Contact">Contact</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" asp-controller="App" asp-action="About">About</a>
+                    </li>
+                </ul>
+            </div>
+        </nav>
     </header>
-    <section>
-        <h1>My Store Front @ViewBag.Title</h1>
+    <section class="container">
+        <h1 class="text-center">@ViewBag.Title</h1>
         @RenderBody()
     </section>
 
-    <footer>Copyright 2023 Vance Trevino</footer>
+    <footer class="container">
+        <div class="text-center">
+            Copyright 2023 Vance Trevino
+        </div>
+    </footer>
+
 
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.min.js"></script>
     <script src="~/js/index.js"></script>
 
-    @RenderSection( "Scripts", false )
+    @RenderSection("Scripts", false)
 </body>
 </html>
