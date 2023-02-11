@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using SimpleStoreFront.Data;
 
@@ -11,9 +12,10 @@ using SimpleStoreFront.Data;
 namespace SimpleStoreFront.Migrations
 {
     [DbContext(typeof(StoreFrontContext))]
-    partial class StoreFrontContextModelSnapshot : ModelSnapshot
+    [Migration("20230210060031_SeedData")]
+    partial class SeedData
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -45,7 +47,7 @@ namespace SimpleStoreFront.Migrations
                         new
                         {
                             Id = 1,
-                            OrderDate = new DateTime(2023, 2, 10, 7, 51, 27, 995, DateTimeKind.Utc).AddTicks(1584),
+                            OrderDate = new DateTime(2023, 2, 10, 6, 0, 31, 262, DateTimeKind.Utc).AddTicks(2082),
                             OrderNumber = "12345"
                         });
                 });
@@ -92,6 +94,7 @@ namespace SimpleStoreFront.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("ArtDescription")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("ArtId")

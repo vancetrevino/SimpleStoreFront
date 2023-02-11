@@ -18,14 +18,14 @@ namespace SimpleStoreFront.Data
         {
             _ctx.Database.EnsureCreated();
 
-            if (_ctx.Products.Any())
+            if (!_ctx.Products.Any())
             {
                 // Need to create the Sample Data
                 var filePath = Path.Combine(_env.ContentRootPath, "Data/art.json");
                 var json = File.ReadAllText(filePath);
                 var products = JsonSerializer.Deserialize<IEnumerable<Product>>(json);
 
-                _ctx.AddRange(products);
+                _ctx.Products.AddRange(products);
 
                 var order = new Order()
                 {

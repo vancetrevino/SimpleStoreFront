@@ -12,8 +12,8 @@ using SimpleStoreFront.Data;
 namespace SimpleStoreFront.Migrations
 {
     [DbContext(typeof(StoreFrontContext))]
-    [Migration("20230210050046_SeedData")]
-    partial class SeedData
+    [Migration("20230210075128_UpdateProductsTable")]
+    partial class UpdateProductsTable
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -47,7 +47,7 @@ namespace SimpleStoreFront.Migrations
                         new
                         {
                             Id = 1,
-                            OrderDate = new DateTime(2023, 2, 10, 5, 0, 45, 928, DateTimeKind.Utc).AddTicks(6393),
+                            OrderDate = new DateTime(2023, 2, 10, 7, 51, 27, 995, DateTimeKind.Utc).AddTicks(1584),
                             OrderNumber = "12345"
                         });
                 });
@@ -94,7 +94,6 @@ namespace SimpleStoreFront.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("ArtDescription")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("ArtId")

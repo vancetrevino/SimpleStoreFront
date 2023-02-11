@@ -9,18 +9,22 @@ namespace SimpleStoreFront.Migrations
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
-            migrationBuilder.InsertData(
+            migrationBuilder.UpdateData(
                 table: "Orders",
-                columns: new[] { "Id", "OrderDate", "OrderNumber" },
-                values: new object[] { 1, new DateTime(2023, 2, 10, 5, 0, 45, 928, DateTimeKind.Utc).AddTicks(6393), "12345" });
+                keyColumn: "Id",
+                keyValue: 1,
+                column: "OrderDate",
+                value: new DateTime(2023, 2, 10, 6, 0, 31, 262, DateTimeKind.Utc).AddTicks(2082));
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
         {
-            migrationBuilder.DeleteData(
+            migrationBuilder.UpdateData(
                 table: "Orders",
                 keyColumn: "Id",
-                keyValue: 1);
+                keyValue: 1,
+                column: "OrderDate",
+                value: new DateTime(2023, 2, 10, 5, 0, 45, 928, DateTimeKind.Utc).AddTicks(6393));
         }
     }
 }

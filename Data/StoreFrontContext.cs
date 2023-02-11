@@ -5,21 +5,26 @@ namespace SimpleStoreFront.Data
 {
     public class StoreFrontContext : DbContext
     {
-        private readonly IConfiguration _config;
-
-        public StoreFrontContext(IConfiguration config)
+        public StoreFrontContext(DbContextOptions<StoreFrontContext> options) : base(options)
         {
-            _config = config;
+
         }
+
+        //private readonly IConfiguration _config;
+
+        //public StoreFrontContext(IConfiguration config)
+        //{
+        //    _config = config;
+        //}
         public DbSet<Product> Products { get; set; }
         public DbSet<Order> Orders { get; set; }
 
-        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-        {
-            base.OnConfiguring(optionsBuilder);
+        //protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+        //{
+        //    base.OnConfiguring(optionsBuilder);
 
-            optionsBuilder.UseSqlServer(_config["ConnectionStrings:StoreFrontContextDb"]);
-        }
+        //    optionsBuilder.UseSqlServer(_config["ConnectionStrings:StoreFrontContextDb"]);
+        //}
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
