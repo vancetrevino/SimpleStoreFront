@@ -1,4 +1,5 @@
-﻿using SimpleStoreFront.Data.Entities;
+﻿using Microsoft.EntityFrameworkCore;
+using SimpleStoreFront.Data.Entities;
 
 namespace SimpleStoreFront.Data
 {
@@ -13,12 +14,40 @@ namespace SimpleStoreFront.Data
             _logger = logger;
         }
 
+        public void AddEntity(object model)
+        {
+            _ctx.Add(model); 
+        }
+
+        public IEnumerable<Order> GetAllOrders(bool includeItems)
+        {
+            if (includeItems)
+            {
+                return _ctx.Orders.Include(o => o.Items)
+                .ThenInclude(i => i.Product)
+                .ToList();
+            }
+            else
+            {
+                return _ctx.Orders.ToList();
+            }
+        }
+
         public IEnumerable<Product> GetAllProducts()
         {
             _logger.LogInformation("GetAllProducts was logged");
             return _ctx.Products
                     .OrderBy(p => p.Title)
                     .ToList();
+        }
+
+        public Order GetOrderById(int id)
+        {
+            return _ctx.Orders
+                .Include(o => o.Items)
+                .ThenInclude(i => i.Product)
+                .Where(o => o.Id == id)
+                .FirstOrDefault();
         }
 
         public IEnumerable<Product> GetProductsByCategory(string category)

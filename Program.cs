@@ -5,8 +5,12 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using SimpleStoreFront.Data;
 using SimpleStoreFront.Services;
+using System.Reflection;
 
 var builder = WebApplication.CreateBuilder(args);
+
+builder.Logging.ClearProviders();
+builder.Logging.AddConsole();
 
 builder.WebHost.UseStaticWebAssets();
 
@@ -14,10 +18,13 @@ builder.Services.AddTransient<StoreSeeder>();
 
 builder.Services.AddTransient<IMailService, NullMailService>();
 
+builder.Services.AddAutoMapper(Assembly.GetExecutingAssembly());
+
 builder.Services.AddControllersWithViews();
 
 builder.Services.AddRazorPages()
-    .AddRazorRuntimeCompilation();
+    .AddRazorRuntimeCompilation()
+    .AddNewtonsoftJson(cfg => cfg.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore);
 
 builder.Services.AddScoped<IStoreFrontRepository, StoreFrontRepository>();
 
