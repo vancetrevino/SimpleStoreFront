@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using SimpleStoreFront.Data;
 using SimpleStoreFront.Services;
 using SimpleStoreFront.ViewModels;
@@ -51,6 +52,7 @@ namespace SimpleStoreFront.Controllers
             return View();
         }
 
+        [Authorize]
         public IActionResult Shop()
         {
             var results = _repository.GetAllProducts();
