@@ -9,8 +9,8 @@
 <head>
     <meta charset="utf-8" />
     <title>Store Front: @ViewBag.Title</title>
-    <link href="~/lib/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet" />
-    <link href="~/lib/fortawesome/fontawesome-free/css/all.min.css" rel="stylesheet" />
+    <link href="@Url.Content("~/lib/bootstrap/dist/css/bootstrap.min.css")" rel="stylesheet" type="text/css"/>
+    <link href="@Url.Content("~/lib/fortawesome/fontawesome-free/css/all.min.css")" rel="stylesheet" type="text/css"/>
     <link href="~/css/site.css" rel="stylesheet" />
 </head>
 <body>
@@ -34,6 +34,19 @@
                     <li class="nav-item">
                         <a class="nav-link" asp-controller="App" asp-action="Shop">Shop</a>
                     </li>
+                    @if (User.Identity.IsAuthenticated)
+                    {
+                        <li class="nav-item">
+                            <a class="nav-link" asp-controller="Account" asp-action="Logout">Logout</a>
+                        </li>
+                    }
+                    else
+                    {
+                        <li class="nav-item">
+                            <a class="nav-link" asp-controller="Account" asp-action="Login">Login</a>
+                        </li>
+                    }
+
                 </ul>
             </div>
         </nav>

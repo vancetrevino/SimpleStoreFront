@@ -1,4 +1,6 @@
 ﻿using AutoMapper;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using SimpleStoreFront.Data;
 using SimpleStoreFront.Data.Entities;
@@ -7,6 +9,7 @@ using SimpleStoreFront.ViewModels;
 namespace SimpleStoreFront.Controllers
 {
     [Route("api/[Controller]")]
+    [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
     public class OrdersController : Controller
     {
         private readonly IStoreFrontRepository _repository;

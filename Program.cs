@@ -4,10 +4,12 @@
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.IdentityModel.Tokens;
 using SimpleStoreFront.Data;
 using SimpleStoreFront.Data.Entities;
 using SimpleStoreFront.Services;
 using System.Reflection;
+using System.Text;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -52,6 +54,18 @@ builder.Services.AddIdentity<StoreUser, IdentityRole>(cfg =>
     cfg.User.RequireUniqueEmail = true;
 })
     .AddEntityFrameworkStores<StoreFrontContext>();
+
+builder.Services.AddAuthentication()
+    .AddCookie()
+    .AddJwtBearer(cfg =>
+    {
+        cfg.TokenValidationParameters = new TokenValidationParameters()
+        {
+            ValidIssuer = builder.Configuration["Tokens:Issuer"],
+            ValidAudience = builder.Configuration["Tokens:Audience"],
+            IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(builder.Configuration["Tokens:key"]))
+        };
+    });
 
 var app = builder.Build();
 
