@@ -12,33 +12,47 @@ namespace SimpleStoreFront.Data
 
         }
 
-        //private readonly IConfiguration _config;
-
-        //public StoreFrontContext(IConfiguration config)
-        //{
-        //    _config = config;
-        //}
         public DbSet<Product> Products { get; set; }
         public DbSet<Order> Orders { get; set; }
 
-        //protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-        //{
-        //    base.OnConfiguring(optionsBuilder);
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            base.OnModelCreating(modelBuilder);
 
-        //    optionsBuilder.UseSqlServer(_config["ConnectionStrings:StoreFrontContextDb"]);
-        //}
-
-        //protected override void OnModelCreating(ModelBuilder modelBuilder)
-        //{
-        //    base.OnModelCreating(modelBuilder);
-
-        //    modelBuilder.Entity<Order>()
-        //        .HasData(new Order()
-        //        {
-        //            Id = 1,
-        //            OrderDate = DateTime.UtcNow,
-        //            OrderNumber = "12345"
-        //        });
-        //}
+            modelBuilder.Entity<Order>()
+                .HasData(new Order()
+                {
+                    Id = 1,
+                    OrderDate = DateTime.UtcNow,
+                    OrderNumber = "12345"
+                });
+        }
     }
 }
+
+//private readonly IConfiguration _config;
+
+//public StoreFrontContext(IConfiguration config)
+//{
+//    _config = config;
+//}
+//protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+//{
+//    base.OnConfiguring(optionsBuilder);
+
+//    optionsBuilder.UseSqlServer(_config["ConnectionStrings:StoreFrontContextDb"]);
+//}
+//protected override void OnModelCreating(ModelBuilder modelBuilder)
+//{
+//    base.OnModelCreating(modelBuilder);
+
+//    modelBuilder.Entity<Order>()
+//        .HasData(new Order()
+//        {
+//            Id = 1,
+//            OrderDate = DateTime.UtcNow,
+//            OrderNumber = "12345"
+//        });
+//}
+
+

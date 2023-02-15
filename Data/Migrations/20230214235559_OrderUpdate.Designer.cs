@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using SimpleStoreFront.Data;
 
@@ -11,9 +12,10 @@ using SimpleStoreFront.Data;
 namespace SimpleStoreFront.Migrations
 {
     [DbContext(typeof(StoreFrontContext))]
-    partial class StoreFrontContextModelSnapshot : ModelSnapshot
+    [Migration("20230214235559_OrderUpdate")]
+    partial class OrderUpdate
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

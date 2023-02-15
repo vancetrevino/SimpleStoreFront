@@ -1,9 +1,11 @@
 // Can use builder to add services
 // https://learn.microsoft.com/en-us/aspnet/core/fundamentals/static-files?view=aspnetcore-7.0
 
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using SimpleStoreFront.Data;
+using SimpleStoreFront.Data.Entities;
 using SimpleStoreFront.Services;
 using System.Reflection;
 
@@ -31,7 +33,6 @@ builder.Services.AddScoped<IStoreFrontRepository, StoreFrontRepository>();
 builder.Services.AddMvc();
 
 builder.Host.ConfigureAppConfiguration(AddConfiguration);
-
 void AddConfiguration(HostBuilderContext ctx, IConfigurationBuilder bldr)
 {
     bldr.Sources.Clear();
@@ -41,20 +42,24 @@ void AddConfiguration(HostBuilderContext ctx, IConfigurationBuilder bldr)
 }
 
 var stringConnection = builder.Configuration.GetConnectionString("StoreFrontContextDb");
-
 builder.Services.AddDbContext<StoreFrontContext>(cfg =>
 {
     cfg.UseSqlServer(stringConnection);
 });
 
-var app = builder.Build();
+builder.Services.AddIdentity<StoreUser, IdentityRole>(cfg =>
+{
+    cfg.User.RequireUniqueEmail = true;
+})
+    .AddEntityFrameworkStores<StoreFrontContext>();
 
+var app = builder.Build();
 
 var scopeFactory = app.Services.GetService<IServiceScopeFactory>();
 using (var scope = scopeFactory.CreateScope())
 {
     var seeder = scope.ServiceProvider.GetService<StoreSeeder>();
-    seeder.Seed();
+    seeder.SeedAsync().Wait();
 }
 
 if (builder.Environment.IsDevelopment())
@@ -69,6 +74,9 @@ else
 app.UseStaticFiles();
 
 app.UseRouting();
+
+app.UseAuthentication();
+app.UseAuthorization();
 
 app.UseEndpoints(cfg =>
 {
