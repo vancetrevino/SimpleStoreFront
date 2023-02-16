@@ -12,6 +12,8 @@
     <link href="@Url.Content("~/lib/bootstrap/dist/css/bootstrap.min.css")" rel="stylesheet" type="text/css"/>
     <link href="@Url.Content("~/lib/fortawesome/fontawesome-free/css/all.min.css")" rel="stylesheet" type="text/css"/>
     <link href="~/css/site.css" rel="stylesheet" />
+
+    @RenderSection("head", false)
 </head>
 <body>
     <header class="container-fluid">
@@ -67,6 +69,6 @@
     <script src="~/lib/bootstrap/dist/js/bootstrap.min.js"></script>
     <script src="~/js/index.js"></script>
 
-    @RenderSection("Scripts", false)
+    @RenderSection("scripts", false)
 </body>
 </html>
