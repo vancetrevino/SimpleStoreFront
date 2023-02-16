@@ -26,7 +26,7 @@ namespace SimpleStoreFront.Controllers
         }
         public IActionResult Login()
         {
-            if (this.User.Identity.IsAuthenticated)
+            if (User.Identity.IsAuthenticated)
             {
                 return RedirectToAction("Index", "App");
             }
