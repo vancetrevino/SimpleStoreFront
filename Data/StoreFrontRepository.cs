@@ -19,13 +19,32 @@ namespace SimpleStoreFront.Data
             _ctx.Add(model); 
         }
 
+        public IEnumerable<Order> GetAllOrderByUser(string username, bool includeItems)
+        {
+            if (includeItems)
+            {
+                return _ctx.Orders
+                            .Where(o => o.User.UserName == username)
+                            .Include(o => o.Items)
+                            .ThenInclude(i => i.Product)
+                            .ToList();
+            }
+            else
+            {
+                return _ctx.Orders
+                            .Where(o => o.User.UserName == username)
+                            .ToList();
+            }
+        }
+
         public IEnumerable<Order> GetAllOrders(bool includeItems)
         {
             if (includeItems)
             {
-                return _ctx.Orders.Include(o => o.Items)
-                .ThenInclude(i => i.Product)
-                .ToList();
+                return _ctx.Orders
+                            .Include(o => o.Items)
+                            .ThenInclude(i => i.Product)
+                            .ToList();
             }
             else
             {
@@ -37,16 +56,16 @@ namespace SimpleStoreFront.Data
         {
             _logger.LogInformation("GetAllProducts was logged");
             return _ctx.Products
-                    .OrderBy(p => p.Title)
-                    .ToList();
+                        .OrderBy(p => p.Title)
+                        .ToList();
         }
 
-        public Order GetOrderById(int id)
+        public Order GetOrderById(string username, int id)
         {
             return _ctx.Orders
                         .Include(o => o.Items)
                         .ThenInclude(i => i.Product)
-                        .Where(o => o.Id == id)
+                        .Where(o => o.Id == id && o.User.UserName == username)
                         .FirstOrDefault();
         }
 
