@@ -21,18 +21,18 @@ namespace SimpleStoreFront.Data
         {
             _ctx.Database.EnsureCreated();
 
-            StoreUser user = await _userManager.FindByEmailAsync("vance@store.com");
+            StoreUser user = await _userManager.FindByEmailAsync("vancetrevino@store.com");
             if (user == null)
             {
                 user = new StoreUser()
                 {
                     FirstName = "Vance",
                     LastName = "Trevino",
-                    Email = "vance@store.com",
-                    UserName = "vance@store.com"
+                    Email = "vancetrevino@store.com",
+                    UserName = "vancetrevino"
                 };
 
-                var results = await _userManager.CreateAsync(user, "P@ssw0rd321!");
+                var results = await _userManager.CreateAsync(user, "Create123!");
 
                 if (results != IdentityResult.Success)
                 {

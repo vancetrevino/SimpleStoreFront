@@ -16,8 +16,10 @@ namespace SimpleStoreFront.Controllers
         private readonly UserManager<StoreUser> _userManager;
         private readonly IConfiguration _config;
 
-        public AccountController(ILogger<AccountController> logger, SignInManager<StoreUser> signInManager, 
-            UserManager<StoreUser> userManager, IConfiguration config)
+        public AccountController(ILogger<AccountController> logger, 
+            SignInManager<StoreUser> signInManager, 
+            UserManager<StoreUser> userManager, 
+            IConfiguration config)
         {
             _logger = logger;
             _signInManager = signInManager;
@@ -49,7 +51,7 @@ namespace SimpleStoreFront.Controllers
                     }
                     else
                     {
-                        RedirectToAction("Shop", "App");
+                        return RedirectToAction("Shop", "App");
                     }
                 }
             }
@@ -87,15 +89,15 @@ namespace SimpleStoreFront.Controllers
                         };
 
 
-                        var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_config["Tokens:Key"]));
+                        var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_config["Token:Key"]));
                         var creds = new SigningCredentials(key, SecurityAlgorithms.HmacSha256);
 
                         var token = new JwtSecurityToken(
-                            _config["Tokens:Issuer"],
-                            _config["Tokens:Audience"],
+                            _config["Token:Issuer"],
+                            _config["Token:Audience"],
                             claims,
                             signingCredentials: creds,
-                            expires: DateTime.UtcNow.AddMinutes(20));
+                            expires: DateTime.UtcNow.AddMinutes(60));
 
                         return Created("", new
                         {
